@@ -1,12 +1,12 @@
 {
-  "wynn.tooltip.rarity.depressing": "§7Depressing§r",
-  "wynn.tooltip.rarity.unique": "§eUnique§r",
-  "wynn.tooltip.rarity.rare": "§dRare§r",
-  "wynn.tooltip.rarity.legendary": "§bLegendary§r",
-  "wynn.tooltip.rarity.fabled": "§cFabled§r",
-  "wynn.tooltip.rarity.mythic": "§5Mythic§r",
-  "wynn.tooltip.rarity.set": "§aSet§r",
-  "wynn.tooltip.rarity.normal": "§f§r",
+  "wynn.tooltip.rarity.depressing": "§7Depressing Item§r",
+  "wynn.tooltip.rarity.unique": "§eUnique Item§r",
+  "wynn.tooltip.rarity.rare": "§dRare Item§r",
+  "wynn.tooltip.rarity.legendary": "§bLegendary Item§r",
+  "wynn.tooltip.rarity.fabled": "§cFabled Item§r",
+  "wynn.tooltip.rarity.mythic": "§5Mythic Item§r",
+  "wynn.tooltip.rarity.set": "§aSet Item§r",
+  "wynn.tooltip.rarity.normal": "§fNormal Item§r",
   "itemGroup.wynn.wynntab": "Wynnclone",
   "item.wynn.testitem": "Test Item"
 }

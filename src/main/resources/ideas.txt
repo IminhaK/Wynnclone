@@ -1,0 +1,4 @@
+Instead of cloning Wynncraft, make it an addition to vanilla
+- level system based on distance from spawn
+- way to ID without identifier
+- no quests cuz map isnt premade
