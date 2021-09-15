@@ -9,17 +9,15 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WeaponBaseItem extends SwordItem implements ItemLike {
+public class WeaponBaseItem extends Item implements ItemLike {
 
-    //TODO:Elemental damage.
-    private float attackDamage;
     private final WynnRarity wynnRarity;
 
-    public WeaponBaseItem(Item.Properties properties, WynnRarity wynnRarity, int attackDamage, float attackSpeed) {
+
+    public WeaponBaseItem(Item.Properties properties, WynnRarity wynnRarity) {
         //TODO:Wynn tier
-        super(Tiers.NETHERITE, attackDamage, attackSpeed, properties);
+        super(properties);
         this.wynnRarity = wynnRarity;
-        this.attackDamage = attackDamage;
     }
 
     public WynnRarity getWynnRarity() {

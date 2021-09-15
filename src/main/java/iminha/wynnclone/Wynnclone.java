@@ -24,9 +24,9 @@ public class Wynnclone {
     public static final RegistryObject<Item> testitem = Wynnclone.ITEMS.register("testitem", () ->
             new BaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.MYTHIC));
     public static final RegistryObject<Item> weaponitem = Wynnclone.ITEMS.register("weaponitem", () ->
-            new WeaponBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.LEGENDARY, 10, 10));
+            new WeaponBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.LEGENDARY));
     public static final RegistryObject<Item> shamanitem = Wynnclone.ITEMS.register("shamanitem", () ->
-            new ShamanBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.SET, 10, 10));
+            new ShamanBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.FABLED));
 
     public Wynnclone() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
