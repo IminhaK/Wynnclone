@@ -1,8 +1,8 @@
 package iminha.wynnclone.item;
 
-public class AssassinBaseItem  extends WeaponBaseItem {
+public class AssassinBaseItem  extends WeaponItem {
 
-    public AssassinBaseItem(Properties properties, WynnRarity wynnRarity) {
-        super(properties, wynnRarity);
+    public AssassinBaseItem(Properties properties) {
+        super(properties);
     }
 }

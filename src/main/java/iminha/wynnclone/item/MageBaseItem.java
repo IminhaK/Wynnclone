@@ -1,8 +1,8 @@
 package iminha.wynnclone.item;
 
-public class MageBaseItem  extends WeaponBaseItem {
+public class MageBaseItem  extends WeaponItem {
 
-    public MageBaseItem(Properties properties, WynnRarity wynnRarity) {
-        super(properties, wynnRarity);
+    public MageBaseItem(Properties properties) {
+        super(properties);
     }
 }

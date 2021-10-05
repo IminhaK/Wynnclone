@@ -1,9 +1,6 @@
 package iminha.wynnclone;
 
-import iminha.wynnclone.item.BaseItem;
-import iminha.wynnclone.item.ShamanBaseItem;
-import iminha.wynnclone.item.WeaponBaseItem;
-import iminha.wynnclone.item.WynnRarity;
+import iminha.wynnclone.item.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,10 +20,16 @@ public class Wynnclone {
     //Items
     public static final RegistryObject<Item> testitem = Wynnclone.ITEMS.register("testitem", () ->
             new BaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.MYTHIC));
-    public static final RegistryObject<Item> weaponitem = Wynnclone.ITEMS.register("weaponitem", () ->
-            new WeaponBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.LEGENDARY));
-    public static final RegistryObject<Item> shamanitem = Wynnclone.ITEMS.register("shamanitem", () ->
-            new ShamanBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.FABLED));
+    public static final RegistryObject<Item> mageweapon = Wynnclone.ITEMS.register("mage_weapon", () ->
+            new MageBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
+    public static final RegistryObject<Item> shamanweapon = Wynnclone.ITEMS.register("shaman_weapon", () ->
+            new ShamanBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
+    public static final RegistryObject<Item> warriorweapon = Wynnclone.ITEMS.register("warrior_weapon", () ->
+            new WarriorBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
+    public static final RegistryObject<Item> archerweapon = Wynnclone.ITEMS.register("archer_weapon", () ->
+            new ArcherBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
+    public static final RegistryObject<Item> assassinweapon = Wynnclone.ITEMS.register("assassin_weapon", () ->
+            new AssassinBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
 
     public Wynnclone() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
