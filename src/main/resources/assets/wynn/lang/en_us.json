@@ -8,5 +8,10 @@
   "wynn.tooltip.rarity.set": "Set Item",
   "wynn.tooltip.rarity.normal": "Normal Item",
   "itemGroup.wynn.wynntab": "Wynnclone",
-  "item.wynn.testitem": "Test Item"
+  "item.wynn.testitem": "Test Item",
+  "item.wynn.assassin_weapon": "Dagger",
+  "item.wynn.archer_weapon": "Bow",
+  "item.wynn.warrior_weapon": "Spear",
+  "item.wynn.mage_weapon": "Wand",
+  "item.wynn.shaman_weapon": "Relik"
 }
