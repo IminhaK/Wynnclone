@@ -1,8 +1,11 @@
 package iminha.wynnclone;
 
 import iminha.wynnclone.item.*;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -18,8 +21,8 @@ public class Wynnclone {
     public static final CreativeModeTab WYNN_TAB = new WynnCreativeTab();
 
     //Items
-    public static final RegistryObject<Item> testitem = Wynnclone.ITEMS.register("testitem", () ->
-            new BaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB), WynnRarity.MYTHIC));
+    public static final RegistryObject<Item> lootbox = Wynnclone.ITEMS.register("lootbox", () ->
+            new LootItem(new Item.Properties().stacksTo(8).tab(Wynnclone.WYNN_TAB)));
     public static final RegistryObject<Item> mageweapon = Wynnclone.ITEMS.register("mage_weapon", () ->
             new MageBaseItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
     public static final RegistryObject<Item> shamanweapon = Wynnclone.ITEMS.register("shaman_weapon", () ->

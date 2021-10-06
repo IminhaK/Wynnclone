@@ -2,7 +2,6 @@ package iminha.wynnclone.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -34,9 +33,12 @@ public enum WynnRarity {
 
     public Component getTooltip() {
         Component translatedTooltip = new TranslatableComponent(tooltip);
+        Component translatedItem = new TranslatableComponent("wynn.tooltip.item");
         return (new TextComponent("")).append(
                 getColor().toString()
                 + translatedTooltip.getString()
+                + " "
+                + translatedItem.getString()
                 + ChatFormatting.RESET);
     }
     public int getMaxModifiers() {return maxModifiers;}
