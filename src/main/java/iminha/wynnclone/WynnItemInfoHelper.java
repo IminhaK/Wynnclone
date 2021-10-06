@@ -58,13 +58,30 @@ public class WynnItemInfoHelper {
         double speed = 0;
         //TODO:Infer equipment slot from item type
         if(stack.hasTag() && !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).isEmpty()) {
-            System.out.println(true);
             for(AttributeModifier a : stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_SPEED))
                 speed += a.getAmount();
 
             //TODO:Switch for different speeds to set tooltip.
+            switch((int)speed) {
+                case -3:
+                    tooltip = new TranslatableComponent("wynn.tooltip.speed.superslow");
+                    break;
+                case -2:
+                    tooltip = new TranslatableComponent("wynn.tooltip.speed.veryslow");
+                    break;
+                case -1:
+                    tooltip = new TranslatableComponent("wynn.tooltip.speed.slow");
+                    break;
+                case 0:
+                    tooltip = new TranslatableComponent("wynn.tooltip.speed.normal");
+                    break;
+                case 1:
+                    tooltip = new TranslatableComponent("wynn.tooltip.speed.fast");
+                    break;
+                default:
+                    tooltip = new TranslatableComponent("ERROR");
+            }
         }
-        tooltip = new TranslatableComponent("wynn.tooltip.speed.fast");
         return new TranslatableComponent(ChatFormatting.GRAY.toString() + tooltip.getString() + " " + (new TranslatableComponent("wynn.tooltip.speed.speed")).getString() + ChatFormatting.RESET.toString());
     }
 

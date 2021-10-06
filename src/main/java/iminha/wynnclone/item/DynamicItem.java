@@ -15,22 +15,22 @@ public class DynamicItem extends Item implements ItemLike {
     public static final String TAG_ATTRIBUTES = "WynnAttributes";
 
     //Required tool
-    public static final String TAG_EFFICIENCY = "efficiency";
+    public static final String TAG_EFFICIENCY = "efficiency"; //TODO: efficiency for tools
 
     //Required armor
-    public static final String TAG_ARMOR = "armor";
-    public static final String TAG_TOUGHNESS = "toughness";
+    public static final String TAG_ARMOR = "armor"; //TODO: armor for armor
+    public static final String TAG_TOUGHNESS = "toughness"; //TODO: tougness for armor
 
     //Required all
     public static final String TAG_RARITY = "rarity";
-    public static final String TAG_DURABILITY = "durability"; //handle own durability
+    public static final String TAG_DURABILITY = "durability"; //TODO: handle own durability
     public static final String TAG_ATTACK_DAMAGE = "damage";
     public static final String TAG_ATTACK_SPEED = "attack_speed";
 
     //Random Attributes
-    public static final String TAG_SPEED = "speed"; //ms
-    public static final String TAG_POWER = "power"; //Rare: multiplies damage by this number.
-    public static final String TAG_UNBREAKING = "unbreaking"; //chance for durability to not reduce
+    public static final String TAG_SPEED = "speed"; //ms TODO: ms speed
+    public static final String TAG_POWER = "power"; //Rare: multiplies damage by this number. TODO: power multiplier
+    public static final String TAG_UNBREAKING = "unbreaking"; //chance for durability to not reduce TODO: unbreaking modifier
 
     public DynamicItem(Item.Properties properties) {
         super(properties);

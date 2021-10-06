@@ -4,13 +4,17 @@ import iminha.wynnclone.WynnItemInfoHelper;
 import iminha.wynnclone.Wynnclone;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class LootItem extends DynamicItem {
@@ -21,7 +25,7 @@ public class LootItem extends DynamicItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-        //Constants
+        //Constants TODO: NBT to determine what type of item drops
         final Item[]CHOICES = new Item[] {Wynnclone.archerweapon.get(), Wynnclone.assassinweapon.get(), Wynnclone.mageweapon.get(), Wynnclone.shamanweapon.get(), Wynnclone.warriorweapon.get()};
         final float[] SPEEDS = {-3, -2, -1, 0, 1};
 
@@ -90,5 +94,11 @@ public class LootItem extends DynamicItem {
         if(!player.isCreative())
             itemStack.shrink(1);
         return super.use(world, player, hand);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        //TODO: Display what item type is inside
+        tooltip.add(WynnItemInfoHelper.getWynnRarity(stack).getTooltip());
     }
 }
