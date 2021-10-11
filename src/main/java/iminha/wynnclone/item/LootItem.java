@@ -1,5 +1,6 @@
 package iminha.wynnclone.item;
 
+import iminha.wynnclone.WynnConfig;
 import iminha.wynnclone.WynnItemInfoHelper;
 import iminha.wynnclone.Wynnclone;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +18,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
+import static org.apache.logging.log4j.Level.WARN;
+
 public class LootItem extends DynamicItem {
 
     public LootItem(Item.Properties properties) {
@@ -26,7 +29,7 @@ public class LootItem extends DynamicItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         //Constants TODO: NBT to determine what type of item drops
-        final Item[]CHOICES = new Item[] {Wynnclone.archerweapon.get(), Wynnclone.assassinweapon.get(), Wynnclone.mageweapon.get(), Wynnclone.shamanweapon.get(), Wynnclone.warriorweapon.get()};
+        final Item[] CHOICES = new Item[] {Wynnclone.archerweapon.get(), Wynnclone.assassinweapon.get(), Wynnclone.mageweapon.get(), Wynnclone.shamanweapon.get(), Wynnclone.warriorweapon.get()};
         final float[] SPEEDS = {-3, -2, -1, 0, 1};
 
         if(world.isClientSide)
@@ -34,13 +37,13 @@ public class LootItem extends DynamicItem {
         ItemStack itemStack = player.getItemInHand(hand);
         //if box doesn't have the needed nbt, don't bother.
         if(!itemStack.hasTag()) {
-            System.out.println(Wynnclone.MODID + " ERROR: Lootbox does not have NBT.");
+            Wynnclone.LOG.log(WARN, "Lootbox does not have NBT.");
             return super.use(world, player, hand);
         } else if(!itemStack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
-            System.out.println(Wynnclone.MODID + " ERROR: Lootbox does not have " + DynamicItem.TAG_ATTRIBUTES + " tag.");
+            Wynnclone.LOG.log(WARN, "Lootbox does not have " + DynamicItem.TAG_ATTRIBUTES + " tag.");
             return super.use(world, player, hand);
         } else if(!itemStack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(DynamicItem.TAG_RARITY)) {
-            System.out.println(Wynnclone.MODID + " ERROR: Lootbox does not have " + DynamicItem.TAG_RARITY + " in " + DynamicItem.TAG_ATTRIBUTES + ".");
+            Wynnclone.LOG.log(WARN, "Lootbox does not have " + DynamicItem.TAG_RARITY + " in " + DynamicItem.TAG_ATTRIBUTES + ".");
             return super.use(world, player, hand);
         }
 
@@ -49,9 +52,16 @@ public class LootItem extends DynamicItem {
         CompoundTag wynnattributes = new CompoundTag();
         int rarity;
 
+        //Wynn attributes
+        //rarity
         randomLoot = new ItemStack(CHOICES[r.nextInt(CHOICES.length)]);
         rarity = WynnItemInfoHelper.getTagIntValue(itemStack, DynamicItem.TAG_RARITY);
         wynnattributes.putInt(DynamicItem.TAG_RARITY, rarity);
+
+        //durability
+        int durability = r.nextInt(2001);
+        wynnattributes.putInt(DynamicItem.TAG_MAX_DURABILITY, durability);
+        wynnattributes.putInt(DynamicItem.TAG_DURABILITY, durability);
 
         CompoundTag fullTag = new CompoundTag();
         //Standard attributes
@@ -64,8 +74,8 @@ public class LootItem extends DynamicItem {
         //TODO:Slot based on item (weapon, armor etc)
         attackDamage.putString("Slot", "mainhand");
         attackDamage.putInt("Operation", 0);
-        //TODO:Min/max damage based on rarity
-        attackDamage.putInt("Amount", r.nextInt(101));
+        //TODO:Min/max damage based on rarity?
+        attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get());
         attackDamage.putIntArray("UUID", new int[]{-12195,15089,212810,-30178});
 
         //Attack Speed
@@ -82,7 +92,7 @@ public class LootItem extends DynamicItem {
         //Randomized attributes
         if(rarity > 0)
             for(int i = 0; i < rarity; i++) {
-
+                //TODO:Add attributes
             }
 
         fullTag.put(DynamicItem.TAG_ATTRIBUTES, wynnattributes);

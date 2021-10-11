@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import org.apache.logging.log4j.Level;
 
 public class WynnItemInfoHelper {
 
@@ -56,7 +57,7 @@ public class WynnItemInfoHelper {
     public static TranslatableComponent getSpeedTooltip(ItemStack stack) {
         Component tooltip = new TranslatableComponent("ERROR");
         double speed = 0;
-        //TODO:Infer equipment slot from item type
+        //Only mainhands have attack speed
         if(stack.hasTag() && !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).isEmpty()) {
             for(AttributeModifier a : stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_SPEED))
                 speed += a.getAmount();
@@ -79,14 +80,19 @@ public class WynnItemInfoHelper {
                     tooltip = new TranslatableComponent("wynn.tooltip.speed.fast");
                     break;
                 default:
-                    tooltip = new TranslatableComponent("ERROR");
+                    tooltip = new TranslatableComponent("SPEED OOR");
             }
         }
         return new TranslatableComponent(ChatFormatting.GRAY.toString() + tooltip.getString() + " " + (new TranslatableComponent("wynn.tooltip.speed.speed")).getString() + ChatFormatting.RESET.toString());
     }
 
     public static TranslatableComponent getDamageTooltip(ItemStack stack) {
-        int damage = -1;
+        int damage = 0;
+        //Only mainhands have attack damage
+        if(stack.hasTag() && !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).isEmpty()) {
+            for(AttributeModifier a : stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE))
+                damage += a.getAmount();
+        }
 
         return new TranslatableComponent(ChatFormatting.GOLD.toString() + (new TranslatableComponent("wynn.tooltip.damage.damage")).getString() + ": " + damage + ChatFormatting.RESET.toString());
     }
@@ -109,7 +115,11 @@ public class WynnItemInfoHelper {
         if(stack.hasTag() && stack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getInt(key);
+            } else {
+                Wynnclone.LOG.log(Level.WARN, "Unable to get int tag value " + key);
             }
+        } else {
+            Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);
         }
 
         return value;
@@ -120,7 +130,11 @@ public class WynnItemInfoHelper {
         if(stack.hasTag() && stack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getFloat(key);
+            } else {
+                Wynnclone.LOG.log(Level.WARN, "Unable to get float tag value " + key);
             }
+        } else {
+            Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);
         }
 
         return value;

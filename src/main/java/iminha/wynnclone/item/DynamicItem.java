@@ -3,6 +3,9 @@ package iminha.wynnclone.item;
 import iminha.wynnclone.WynnItemInfoHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -24,8 +27,7 @@ public class DynamicItem extends Item implements ItemLike {
     //Required all
     public static final String TAG_RARITY = "rarity";
     public static final String TAG_DURABILITY = "durability"; //TODO: handle own durability
-    public static final String TAG_ATTACK_DAMAGE = "damage";
-    public static final String TAG_ATTACK_SPEED = "attack_speed";
+    public static final String TAG_MAX_DURABILITY = "max_durability";
 
     //Random Attributes
     public static final String TAG_SPEED = "speed"; //ms TODO: ms speed
@@ -42,12 +44,21 @@ public class DynamicItem extends Item implements ItemLike {
         return WynnItemInfoHelper.getWynnItemName(stack, super.getName(stack));
     }
 
+    //test
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        player.getItemInHand(hand).getTag().getCompound(TAG_ATTRIBUTES).putInt(TAG_DURABILITY, player.getItemInHand(hand).getTag().getCompound(TAG_ATTRIBUTES).getInt(TAG_DURABILITY) - 1);
+
+        return super.use(world, player, hand);
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(WynnItemInfoHelper.getSpeedTooltip(stack));
-        tooltip.add(new TranslatableComponent(""));
-        tooltip.add(WynnItemInfoHelper.getDamageTooltip(stack));
-        tooltip.add(new TranslatableComponent(""));
-        tooltip.add(WynnItemInfoHelper.getWynnRarity(stack).getTooltip());
+        tooltip.add(WynnItemInfoHelper.getSpeedTooltip(stack)); // speed
+        tooltip.add(new TranslatableComponent("")); //
+        tooltip.add(WynnItemInfoHelper.getDamageTooltip(stack)); //damage
+        tooltip.add(new TranslatableComponent("")); //
+        tooltip.add(new TranslatableComponent("[" + WynnItemInfoHelper.getTagIntValue(stack, TAG_DURABILITY) + "/" + WynnItemInfoHelper.getTagIntValue(stack, TAG_MAX_DURABILITY) + "]")); //durability
+        tooltip.add(WynnItemInfoHelper.getWynnRarity(stack).getTooltip()); //rarity
     }
 }
