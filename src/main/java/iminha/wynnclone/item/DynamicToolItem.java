@@ -41,6 +41,6 @@ public class DynamicToolItem extends DynamicItem {
 
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
-        return state.is(effectiveBlocks) && net.minecraftforge.common.TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state); //All tools are diamond tier. TODO:Rare modifier to increase tier
+        return state.is(effectiveBlocks) && net.minecraftforge.common.TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state); //All tools are diamond tier.
     }
 }

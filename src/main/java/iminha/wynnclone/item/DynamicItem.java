@@ -28,7 +28,7 @@ public class DynamicItem extends Item implements ItemLike {
 
     //Required all
     public static final String TAG_RARITY = "rarity";
-    public static final String TAG_DURABILITY = "durability"; //TODO: handle own durability
+    public static final String TAG_DURABILITY = "durability";
     public static final String TAG_MAX_DURABILITY = "max_durability";
 
     //Random Attributes

@@ -101,7 +101,7 @@ public class LootItem extends DynamicItem {
         //Randomized attributes
         if(rarity > 0)
             for(int i = 0; i < rarity; i++) {
-                //TODO:Add attributes
+                //TODO:Add randomized attributes
             }
 
         CompoundTag fullTag = new CompoundTag();
