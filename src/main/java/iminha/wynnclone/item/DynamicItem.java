@@ -18,7 +18,7 @@ public class DynamicItem extends Item implements ItemLike {
     public static final String TAG_ATTRIBUTES = "WynnAttributes";
 
     //Required tool
-    public static final String TAG_EFFICIENCY = "efficiency"; //TODO: efficiency for tools
+    public static final String TAG_MINE_SPEED = "mine_speed"; //TODO: efficiency for tools
 
     //Required armor
     public static final String TAG_ARMOR = "armor"; //TODO: armor for armor
@@ -44,7 +44,7 @@ public class DynamicItem extends Item implements ItemLike {
         return WynnItemInfoHelper.getWynnItemName(stack, super.getName(stack));
     }
 
-    //test
+    //TODO: Remove test
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         player.getItemInHand(hand).getTag().getCompound(TAG_ATTRIBUTES).putInt(TAG_DURABILITY, player.getItemInHand(hand).getTag().getCompound(TAG_ATTRIBUTES).getInt(TAG_DURABILITY) - 1);
@@ -55,6 +55,8 @@ public class DynamicItem extends Item implements ItemLike {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(WynnItemInfoHelper.getSpeedTooltip(stack)); // speed
+        if(stack.getItem() instanceof DynamicToolItem)
+            tooltip.add(WynnItemInfoHelper.getMineSpeedTooltip(stack));
         tooltip.add(new TranslatableComponent("")); //
         tooltip.add(WynnItemInfoHelper.getDamageTooltip(stack)); //damage
         tooltip.add(new TranslatableComponent("")); //

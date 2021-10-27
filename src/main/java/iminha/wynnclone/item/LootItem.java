@@ -29,7 +29,7 @@ public class LootItem extends DynamicItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         //Constants TODO: NBT to determine what type of item drops
-        final Item[] CHOICES = new Item[] {Wynnclone.archerweapon.get(), Wynnclone.assassinweapon.get(), Wynnclone.mageweapon.get(), Wynnclone.shamanweapon.get(), Wynnclone.warriorweapon.get()};
+        final Item[] CHOICES = new Item[] {Wynnclone.archerweapon.get(), Wynnclone.assassinweapon.get(), Wynnclone.mageweapon.get(), Wynnclone.shamanweapon.get(), Wynnclone.warriorweapon.get(), Wynnclone.pickaxetool.get()};
         final float[] SPEEDS = {-3, -2, -1, 0, 1};
 
         if(world.isClientSide)
@@ -59,11 +59,16 @@ public class LootItem extends DynamicItem {
         wynnattributes.putInt(DynamicItem.TAG_RARITY, rarity);
 
         //durability
-        int durability = r.nextInt(2001);
+        int durability = r.nextInt(2001); //TODO:Config min/max durability
         wynnattributes.putInt(DynamicItem.TAG_MAX_DURABILITY, durability);
         wynnattributes.putInt(DynamicItem.TAG_DURABILITY, durability);
 
-        CompoundTag fullTag = new CompoundTag();
+        //mining speed
+        if(randomLoot.getItem() instanceof DynamicToolItem) {
+            float mineSpeed = (float)(r.nextInt((int)(WynnConfig.maxMiningSpeed.get() * 10) - (int)(WynnConfig.minMiningSpeed.get() * 10) + 10) + WynnConfig.minMiningSpeed.get().intValue()) / 10; //random number in range with one decimal place.
+            wynnattributes.putFloat(DynamicItem.TAG_MINE_SPEED, mineSpeed);
+        }
+
         //Standard attributes
         ListTag minecraftAttributes = new ListTag();
         CompoundTag attackDamage = new CompoundTag();
@@ -75,7 +80,11 @@ public class LootItem extends DynamicItem {
         attackDamage.putString("Slot", "mainhand");
         attackDamage.putInt("Operation", 0);
         //TODO:Min/max damage based on rarity?
-        attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get());
+        if(randomLoot.getItem() instanceof DynamicToolItem) { //Tool
+            attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get() - WynnConfig.toolDamagePentalty.get());
+        } else { //Weapon
+            attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get());
+        }
         attackDamage.putIntArray("UUID", new int[]{-12195,15089,212810,-30178});
 
         //Attack Speed
@@ -95,6 +104,7 @@ public class LootItem extends DynamicItem {
                 //TODO:Add attributes
             }
 
+        CompoundTag fullTag = new CompoundTag();
         fullTag.put(DynamicItem.TAG_ATTRIBUTES, wynnattributes);
         fullTag.put("AttributeModifiers", minecraftAttributes);
         fullTag.putInt("HideFlags", 2);

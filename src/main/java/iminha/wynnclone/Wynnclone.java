@@ -1,12 +1,9 @@
 package iminha.wynnclone;
 
 import iminha.wynnclone.item.*;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -42,7 +39,7 @@ public class Wynnclone {
     public static final RegistryObject<Item> assassinweapon = Wynnclone.ITEMS.register("assassin_weapon", () ->
             new AssassinWeaponItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
     public static final RegistryObject<Item> pickaxetool = Wynnclone.ITEMS.register("pickaxe", () ->
-            new PickaxeItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
+            new DynamicPickaxeItem(new Item.Properties().stacksTo(1).tab(Wynnclone.WYNN_TAB)));
 
     public Wynnclone() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());

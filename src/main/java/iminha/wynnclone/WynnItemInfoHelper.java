@@ -3,7 +3,6 @@ package iminha.wynnclone;
 import iminha.wynnclone.item.DynamicItem;
 import iminha.wynnclone.item.WynnRarity;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
@@ -30,24 +29,16 @@ public class WynnItemInfoHelper {
     public static WynnRarity getWynnRarity(ItemStack stack) {
         if(stack.hasTag() && stack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(DynamicItem.TAG_RARITY)) {
-                switch (stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getInt(DynamicItem.TAG_RARITY)) {
-                    case 1:
-                        return WynnRarity.NORMAL;
-                    case 2:
-                        return WynnRarity.UNIQUE;
-                    case 3:
-                        return WynnRarity.RARE;
-                    case 4:
-                        return WynnRarity.LEGENDARY;
-                    case 5:
-                        return WynnRarity.FABLED;
-                    case 6:
-                        return WynnRarity.MYTHIC;
-                    case 7:
-                        return WynnRarity.SET; //unused
-                    default:
-                        return WynnRarity.DEPRESSING;
-                }
+                return switch (stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getInt(DynamicItem.TAG_RARITY)) {
+                    case 1 -> WynnRarity.NORMAL;
+                    case 2 -> WynnRarity.UNIQUE;
+                    case 3 -> WynnRarity.RARE;
+                    case 4 -> WynnRarity.LEGENDARY;
+                    case 5 -> WynnRarity.FABLED;
+                    case 6 -> WynnRarity.MYTHIC;
+                    case 7 -> WynnRarity.SET; //unused
+                    default -> WynnRarity.DEPRESSING;
+                };
             }
         }
 
@@ -62,26 +53,14 @@ public class WynnItemInfoHelper {
             for(AttributeModifier a : stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_SPEED))
                 speed += a.getAmount();
 
-            //TODO:Switch for different speeds to set tooltip.
-            switch((int)speed) {
-                case -3:
-                    tooltip = new TranslatableComponent("wynn.tooltip.speed.superslow");
-                    break;
-                case -2:
-                    tooltip = new TranslatableComponent("wynn.tooltip.speed.veryslow");
-                    break;
-                case -1:
-                    tooltip = new TranslatableComponent("wynn.tooltip.speed.slow");
-                    break;
-                case 0:
-                    tooltip = new TranslatableComponent("wynn.tooltip.speed.normal");
-                    break;
-                case 1:
-                    tooltip = new TranslatableComponent("wynn.tooltip.speed.fast");
-                    break;
-                default:
-                    tooltip = new TranslatableComponent("SPEED OOR");
-            }
+            tooltip = switch ((int) speed) {
+                case -3 -> new TranslatableComponent("wynn.tooltip.speed.superslow");
+                case -2 -> new TranslatableComponent("wynn.tooltip.speed.veryslow");
+                case -1 -> new TranslatableComponent("wynn.tooltip.speed.slow");
+                case 0 -> new TranslatableComponent("wynn.tooltip.speed.normal");
+                case 1 -> new TranslatableComponent("wynn.tooltip.speed.fast");
+                default -> new TranslatableComponent("SPEED OUT OF RANGE");
+            };
         }
         return new TranslatableComponent(ChatFormatting.GRAY.toString() + tooltip.getString() + " " + (new TranslatableComponent("wynn.tooltip.speed.speed")).getString() + ChatFormatting.RESET.toString());
     }
@@ -95,6 +74,18 @@ public class WynnItemInfoHelper {
         }
 
         return new TranslatableComponent(ChatFormatting.GOLD.toString() + (new TranslatableComponent("wynn.tooltip.damage.damage")).getString() + ": " + damage + ChatFormatting.RESET.toString());
+    }
+
+    public static TranslatableComponent getMineSpeedTooltip(ItemStack stack) {
+        float speed = 0;
+        //Only mainhands have mine speed
+        if(stack.hasTag() && stack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
+            if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(DynamicItem.TAG_MINE_SPEED)) {
+                speed = getTagFloatValue(stack, DynamicItem.TAG_MINE_SPEED);
+            }
+        }
+
+        return new TranslatableComponent(ChatFormatting.GRAY.toString() + (new TranslatableComponent("wynn.tooltip.minespeed")).getString() + ": " + speed + ChatFormatting.RESET.toString());
     }
 
     public static Component getWynnItemName(ItemStack stack, Component currentName) {
@@ -132,6 +123,21 @@ public class WynnItemInfoHelper {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getFloat(key);
             } else {
                 Wynnclone.LOG.log(Level.WARN, "Unable to get float tag value " + key);
+            }
+        } else {
+            Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);
+        }
+
+        return value;
+    }
+
+    public static boolean getTagBooleanValue(ItemStack stack, String key) {
+        boolean value = false;
+        if(stack.hasTag() && stack.getTag().contains(DynamicItem.TAG_ATTRIBUTES)) {
+            if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
+                value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getBoolean(key);
+            } else {
+                Wynnclone.LOG.log(Level.WARN, "Unable to get boolean tag value " + key);
             }
         } else {
             Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);

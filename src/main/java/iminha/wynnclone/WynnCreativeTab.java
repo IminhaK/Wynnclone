@@ -26,7 +26,7 @@ public class WynnCreativeTab extends CreativeModeTab {
             Item i = r.get();
             if(!r.equals(Wynnclone.lootbox)) {
                 itemsInTab.add(new ItemStack(i));
-            } else { //Lootboxes
+            } else if(r.equals(Wynnclone.lootbox)){ //Lootboxes
                 ItemStack newBox;
                 for(WynnRarity w : WynnRarity.values()) {
                     CompoundTag wynnattributes = new CompoundTag();
