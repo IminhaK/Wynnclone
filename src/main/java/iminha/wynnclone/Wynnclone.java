@@ -50,6 +50,6 @@ public class Wynnclone {
 
     @SubscribeEvent
     public static void modelOverrides(FMLClientSetupEvent e) {
-        //TODO:Item model property for loot chest based on rarity
+        //TODO:Item model property for loot chest based on rarity and item inside
     }
 }

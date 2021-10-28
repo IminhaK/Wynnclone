@@ -101,7 +101,32 @@ public class LootItem extends DynamicItem {
         //Randomized attributes
         if(rarity > 0)
             for(int i = 0; i < rarity; i++) {
-                //TODO:Add randomized attributes
+                String rAttr = RANDOM_ATTRIBUTES.get(r.nextInt(RANDOM_ATTRIBUTES.size() - 1));
+
+                switch (rAttr) {
+                    case TAG_SPEED -> {
+                        if(!wynnattributes.contains(TAG_SPEED))
+                            wynnattributes.putInt(TAG_SPEED, 10);
+                        else
+                            wynnattributes.putInt(TAG_SPEED, wynnattributes.getInt(TAG_SPEED) + 10);
+                    }
+                    case TAG_POWER -> {
+                        if(!wynnattributes.contains(TAG_POWER))
+                            wynnattributes.putInt(TAG_POWER, 10);
+                        else
+                            wynnattributes.putInt(TAG_POWER, wynnattributes.getInt(TAG_POWER) + 10);
+                    }
+                    case TAG_UNBREAKING -> {
+                        if(!wynnattributes.contains(TAG_UNBREAKING))
+                            wynnattributes.putInt(TAG_UNBREAKING, 10);
+                        else
+                            wynnattributes.putInt(TAG_UNBREAKING, wynnattributes.getInt(TAG_UNBREAKING) + 10);
+                    }
+                    case TAG_TIER_UP -> {
+                        //TODO:Only add once, reroll if twice. Tools only
+                        Wynnclone.LOG.log(org.apache.logging.log4j.Level.WARN, "Lootbox picked Tier Up. Skipping.");
+                    }
+                }
             }
 
         CompoundTag fullTag = new CompoundTag();

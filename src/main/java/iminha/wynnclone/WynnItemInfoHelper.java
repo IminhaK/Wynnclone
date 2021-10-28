@@ -107,7 +107,7 @@ public class WynnItemInfoHelper {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getInt(key);
             } else {
-                Wynnclone.LOG.log(Level.WARN, "Unable to get int tag value " + key);
+                //Wynnclone.LOG.log(Level.WARN, "Unable to get int tag value " + key); Console spam
             }
         } else {
             Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);
@@ -122,7 +122,7 @@ public class WynnItemInfoHelper {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getFloat(key);
             } else {
-                Wynnclone.LOG.log(Level.WARN, "Unable to get float tag value " + key);
+                //Wynnclone.LOG.log(Level.WARN, "Unable to get float tag value " + key); Console spam
             }
         } else {
             Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);
@@ -137,7 +137,7 @@ public class WynnItemInfoHelper {
             if(stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).contains(key)) {
                 value = stack.getTag().getCompound(DynamicItem.TAG_ATTRIBUTES).getBoolean(key);
             } else {
-                Wynnclone.LOG.log(Level.WARN, "Unable to get boolean tag value " + key);
+                //Wynnclone.LOG.log(Level.WARN, "Unable to get boolean tag value " + key); Console spam
             }
         } else {
             Wynnclone.LOG.log(Level.WARN, "Item is missing tag " + DynamicItem.TAG_ATTRIBUTES);

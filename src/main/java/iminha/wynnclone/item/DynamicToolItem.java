@@ -29,11 +29,7 @@ public class DynamicToolItem extends DynamicItem {
     @Override
     public boolean mineBlock(ItemStack stack, Level world, BlockState state, BlockPos pos, LivingEntity entity) {
         if(!world.isClientSide() && state.getDestroySpeed(world, pos) != 0.0f) {
-            stack.getTag().getCompound(TAG_ATTRIBUTES).putInt(TAG_DURABILITY, WynnItemInfoHelper.getTagIntValue(stack, TAG_DURABILITY) - 1);
-            if(WynnItemInfoHelper.getTagIntValue(stack, TAG_DURABILITY) <= 0) {
-                entity.broadcastBreakEvent(EquipmentSlot.MAINHAND); //Assume tool is being used in main hand
-                stack.shrink(1);
-            }
+            damageItem(stack, 1, entity, a -> {});
         }
 
         return true;

@@ -26,7 +26,6 @@ public class BaseItem extends Item implements ItemLike {
 
     @Override
     public Component getName(ItemStack stack) {
-        //TODO:Have the name only be created once
         Component oldname = super.getName(stack); //Already translated
         //tooltip.set(0, new TranslatableComponent(getColorFromWynnRarity(((BaseItem)stack.getItem()).getWynnRarity())));
         return new TranslatableComponent(((BaseItem)stack.getItem()).getWynnRarity().getColor()
