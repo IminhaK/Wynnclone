@@ -66,7 +66,7 @@ public class WynnItemInfoHelper {
     }
 
     public static TranslatableComponent getDamageTooltip(ItemStack stack) {
-        int damage = 0;
+        double damage = 0;
         //Only mainhands have attack damage
         if(stack.hasTag() && !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).isEmpty()) {
             for(AttributeModifier a : stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE))

@@ -39,8 +39,8 @@ public class DynamicItem extends Item implements ItemLike {
     public static final String TAG_MAX_DURABILITY = "max_durability";
 
     //Random Attributes
-    public static final String TAG_SPEED = "speed"; //ms TODO: apply move speed
-    public static final String TAG_POWER = "power"; //Rare: multiplies damage by this number. TODO: apply power multiplier
+    public static final String TAG_SPEED = "speed"; //ms
+    public static final String TAG_POWER = "power"; //Rare: multiplies damage by this number.
     public static final String TAG_UNBREAKING = "unbreaking"; //chance for durability to not reduce
     public static final String TAG_TIER_UP = "tier_up"; //increase tool tier to netherite //TODO: increase tool tier (probably in tool class)
     public static final List<String> RANDOM_ATTRIBUTES = new ArrayList<String>() {{

@@ -69,35 +69,6 @@ public class LootItem extends DynamicItem {
             wynnattributes.putFloat(DynamicItem.TAG_MINE_SPEED, mineSpeed);
         }
 
-        //Standard attributes
-        ListTag minecraftAttributes = new ListTag();
-        CompoundTag attackDamage = new CompoundTag();
-        CompoundTag attackSpeed = new CompoundTag();
-
-        //Attack Damage
-        attackDamage.putString("AttributeName", "generic.attack_damage");
-        //TODO:Slot based on item (weapon, armor etc)
-        attackDamage.putString("Slot", "mainhand");
-        attackDamage.putInt("Operation", 0);
-        //TODO:Min/max damage based on rarity?
-        if(randomLoot.getItem() instanceof DynamicToolItem) { //Tool
-            attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get() - WynnConfig.toolDamagePentalty.get());
-        } else { //Weapon
-            attackDamage.putInt("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get());
-        }
-        attackDamage.putIntArray("UUID", new int[]{-12195,15089,212810,-30178});
-
-        //Attack Speed
-        attackSpeed.putString("AttributeName", "generic.attack_speed");
-        //TODO:Slot based on item (weapon, armor etc)
-        attackSpeed.putString("Slot", "mainhand");
-        attackSpeed.putInt("Operation", 0);
-        float speed = SPEEDS[r.nextInt(SPEEDS.length)];
-        attackSpeed.putFloat("Amount", speed);
-        attackSpeed.putIntArray("UUID", new int[]{-12195,15489,212810,-30978});
-
-        minecraftAttributes.add(attackDamage);
-        minecraftAttributes.add(attackSpeed);
         //Randomized attributes
         if(rarity > 0)
             for(int i = 0; i < rarity; i++) {
@@ -128,6 +99,53 @@ public class LootItem extends DynamicItem {
                     }
                 }
             }
+
+        //Standard attributes
+        ListTag minecraftAttributes = new ListTag();
+        CompoundTag attackDamage = new CompoundTag();
+        CompoundTag attackSpeed = new CompoundTag();
+
+        //Attack Damage
+        attackDamage.putString("AttributeName", "generic.attack_damage");
+        //TODO:Slot based on item (weapon, armor etc)
+        attackDamage.putString("Slot", "mainhand");
+        attackDamage.putInt("Operation", 0);
+        //TODO:Min/max damage based on rarity?
+        if(randomLoot.getItem() instanceof DynamicToolItem) { //Tool
+            attackDamage.putDouble("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get() - WynnConfig.toolDamagePentalty.get());
+        } else { //Weapon
+            attackDamage.putDouble("Amount", r.nextInt(WynnConfig.maxDamage.get() - WynnConfig.minDamage.get() + 1) + WynnConfig.minDamage.get());
+        }
+        attackDamage.putIntArray("UUID", new int[]{-12195,15089,212810,-30178});
+        //Power multiplier
+        if(wynnattributes.contains(TAG_POWER)) {
+            attackDamage.putDouble("Amount", (double)attackDamage.getInt("Amount") * ((wynnattributes.getInt(TAG_POWER) / 100.0) + 1));
+        }
+
+        //Attack Speed
+        attackSpeed.putString("AttributeName", "generic.attack_speed");
+        //TODO:Slot based on item (weapon, armor etc)
+        attackSpeed.putString("Slot", "mainhand");
+        attackSpeed.putInt("Operation", 0);
+        float speed = SPEEDS[r.nextInt(SPEEDS.length)];
+        attackSpeed.putFloat("Amount", speed);
+        attackSpeed.putIntArray("UUID", new int[]{-12195,15489,212810,-30978});
+
+        //Movement speed
+        if(wynnattributes.contains(TAG_SPEED)) {
+            CompoundTag moveSpeed = new CompoundTag();
+
+            moveSpeed.putString("AttributeName", "generic.movement_speed");
+            //TODO:Slot based on item (weapon, armor etc)
+            moveSpeed.putString("Slot", "mainhand");
+            moveSpeed.putInt("Operation", 1);
+            moveSpeed.putDouble("Amount", (double)wynnattributes.getInt(TAG_SPEED) / 100); //Base player ms is 0.1 and sprint is 0.15
+            moveSpeed.putIntArray("UUID", new int[]{-121929,16126,185211,-32252});
+            minecraftAttributes.add(moveSpeed);
+        }
+
+        minecraftAttributes.add(attackDamage);
+        minecraftAttributes.add(attackSpeed);
 
         CompoundTag fullTag = new CompoundTag();
         fullTag.put(DynamicItem.TAG_ATTRIBUTES, wynnattributes);
